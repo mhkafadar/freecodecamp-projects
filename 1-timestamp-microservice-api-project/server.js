@@ -57,6 +57,10 @@ app.get('/api/timestamp', function(req, res) {
 })
 
 
+app.use(function(req, res) {
+    res.status(404).send("Page not found");
+})
+
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
