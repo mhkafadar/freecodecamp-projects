@@ -8,7 +8,7 @@ const routes = require('./routes.js')
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/exercise2');
+mongoose.connect('mongodb://localhost:27017/exercise3');
 
 app.use(cors());
 

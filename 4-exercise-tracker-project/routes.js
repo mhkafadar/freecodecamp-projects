@@ -70,10 +70,10 @@ router.post('/api/exercise/add', function(req, res, next) {
 
 // show exercises of user
 router.get('/api/exercise/log', function(req, res, next) {
-		let userId = req.query.userId
+		let userId = req.query.userId;
 		let from = new Date(req.query.from);
 		let to = new Date(req.query.to);
-		let limit = req.query.limit
+		let limit = req.query.limit;
 	User.findOne({ userId: userId}, function(err, user) {
 		if (err) {
 			next(err);
@@ -82,12 +82,19 @@ router.get('/api/exercise/log', function(req, res, next) {
 			res.json({ error: 'user not found!'});
 		} else {
 			let results = user.exercises
+			if(to && from) {
+				results = results.filter(function(item) {
+					return item.date >= from && item.date <= to
+				});
+			}
+			if(!isNaN(limit)) {
+				results = results.slice(0, limit);
+			}
 			res.json({
 				exercises: results
 			});
 		}
 	})
 });
-
 
 module.exports = router;
